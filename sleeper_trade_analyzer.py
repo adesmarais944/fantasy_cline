@@ -9,23 +9,119 @@ This script analyzes your Sleeper fantasy football league to identify:
 - Potential trade opportunities
 
 Usage: python sleeper_trade_analyzer.py
+
+Configuration is loaded from config.json, which contains all customizable parameters
+including weights, thresholds, and league settings.
 """
 
 import requests
 import json
-from typing import Dict, List, Optional
+import os
+from typing import Dict, List, Optional, Any, Union
 from collections import defaultdict
 import time
 import statistics
 
+class ConfigLoader:
+    """Load and manage configuration values from config.json"""
+    
+    def __init__(self, config_path: str = "config.json"):
+        """Initialize the configuration loader
+        
+        Args:
+            config_path: Path to the configuration file (default: config.json)
+        """
+        self.config_path = config_path
+        self.config = self._load_config()
+    
+    def _load_config(self) -> Dict:
+        """Load configuration from file
+        
+        Returns:
+            Dict containing configuration values
+        """
+        try:
+            if os.path.exists(self.config_path):
+                with open(self.config_path, 'r') as config_file:
+                    config = json.load(config_file)
+                print(f"Loaded configuration from {self.config_path}")
+                return config
+            else:
+                print(f"Warning: Configuration file {self.config_path} not found. Using default values.")
+                return {}
+        except Exception as e:
+            print(f"Error loading configuration: {e}. Using default values.")
+            return {}
+    
+    def get(self, path: str, default: Any = None) -> Any:
+        """Get a configuration value using dot notation path
+        
+        Args:
+            path: Dot notation path to the configuration value (e.g., "league.default_league_id")
+            default: Default value to return if the path is not found
+            
+        Returns:
+            Configuration value or default if not found
+        """
+        parts = path.split('.')
+        current = self.config
+        
+        try:
+            for part in parts:
+                if isinstance(current, dict) and part in current:
+                    current = current[part]
+                else:
+                    return default
+            return current
+        except Exception:
+            return default
+    
+    def get_str(self, path: str, default: str = "") -> str:
+        """Get a string configuration value"""
+        value = self.get(path, default)
+        return str(value) if value is not None else default
+    
+    def get_int(self, path: str, default: int = 0) -> int:
+        """Get an integer configuration value"""
+        value = self.get(path, default)
+        try:
+            return int(value)
+        except (ValueError, TypeError):
+            return default
+    
+    def get_float(self, path: str, default: float = 0.0) -> float:
+        """Get a float configuration value"""
+        value = self.get(path, default)
+        try:
+            return float(value)
+        except (ValueError, TypeError):
+            return default
+    
+    def get_dict(self, path: str, default: Dict = None) -> Dict:
+        """Get a dictionary configuration value"""
+        if default is None:
+            default = {}
+        value = self.get(path, default)
+        return value if isinstance(value, dict) else default
+    
+    def get_list(self, path: str, default: List = None) -> List:
+        """Get a list configuration value"""
+        if default is None:
+            default = []
+        value = self.get(path, default)
+        return value if isinstance(value, list) else default
+
+# Create a global configuration instance
+config = ConfigLoader()
+
 class SleeperAPI:
     """Handle all Sleeper API interactions"""
-    
-    BASE_URL = "https://api.sleeper.app/v1"
     
     def __init__(self):
         self.session = requests.Session()
         self.players_cache = None
+        # Get base URL from config or use default
+        self.BASE_URL = config.get_str("league.api.base_url", "https://api.sleeper.app/v1")
     
     def get_league_info(self, league_id: str) -> Dict:
         """Get league information and settings"""
@@ -142,15 +238,8 @@ class PerformanceTracker:
         self.player_scores = defaultdict(list)
         self.positional_rankings = {}
         
-        # Position weights for performance modifiers
-        self.position_weights = {
-            'QB': 0.2,
-            'RB': 0.3,
-            'WR': 0.25,
-            'TE': 0.15,
-            'DEF': 0.05,
-            'K': 0.05
-        }
+        # Load position weights from configuration
+        self.position_weights = config.get_dict("performance_tracker.position_weights")
     
     def load_performance_data(self):
         """Load fantasy scoring data from league matchups"""
@@ -211,15 +300,8 @@ class PerformanceTracker:
     
     def calculate_expected_rank_from_adp(self, adp: int, position: str) -> int:
         """Convert ADP to expected positional rank"""
-        # Rough conversion based on typical draft patterns
-        position_multipliers = {
-            'QB': 0.08,  # ~12 QBs in first 150 picks
-            'RB': 0.25,  # ~37 RBs in first 150 picks  
-            'WR': 0.35,  # ~52 WRs in first 150 picks
-            'TE': 0.08,  # ~12 TEs in first 150 picks
-            'DEF': 0.08, # ~12 DEFs in first 150 picks
-            'K': 0.08    # ~12 Ks in first 150 picks
-        }
+        # Get position multipliers from config
+        position_multipliers = config.get_dict("performance_tracker.position_multipliers")
         
         multiplier = position_multipliers.get(position, 0.15)
         expected_rank = max(1, int(adp * multiplier))
@@ -372,13 +454,17 @@ class PlayerValueAnalyzer:
         if not draft_info:
             return 3  # Undrafted players are Tier 3
         
+        # Get tier thresholds from config
+        tier_1_max = config.get_int("player_value_analyzer.tier_thresholds.tier_1_max_round", 3)
+        tier_2_max = config.get_int("player_value_analyzer.tier_thresholds.tier_2_max_round", 6)
+        
         round_num = draft_info.get('round', 99)
-        if round_num <= 3:
-            return 1  # Tier 1: Elite/Proven Talent (Rounds 1-3)
-        elif round_num <= 6:
-            return 2  # Tier 2: Solid Contributors (Rounds 4-6)
+        if round_num <= tier_1_max:
+            return 1  # Tier 1: Elite/Proven Talent (Rounds 1-3 by default)
+        elif round_num <= tier_2_max:
+            return 2  # Tier 2: Solid Contributors (Rounds 4-6 by default)
         else:
-            return 3  # Tier 3: Flyers and Depth (Rounds 7+)
+            return 3  # Tier 3: Flyers and Depth (Rounds 7+ by default)
     
     def calculate_player_value_score(self, player_id: str) -> float:
         """Calculate a composite value score for a player with enhanced tier-based adjustments"""
@@ -398,41 +484,58 @@ class PlayerValueAnalyzer:
             # Increased to 0-80 scale for more differentiation
             base_score = max(0, 1000 - search_rank) / 12.5  # Scale to 0-80
         
-        # Apply tier-based base score multipliers
-        tier_multipliers = {1: 1.3, 2: 1.0, 3: 0.7}  # Increased Tier 1 bonus
-        base_score *= tier_multipliers[tier]
+        # Apply tier-based base score multipliers from config
+        tier_multipliers = config.get_dict("player_value_analyzer.tier_multipliers.base")
+        base_score *= float(tier_multipliers.get(str(tier), 1.0))
         
-        # Enhanced depth chart bonus with tier scaling
+        # Enhanced depth chart bonus with tier scaling from config
         depth_bonus = 0
         depth_pos = metrics['depth_chart_position']
         if isinstance(depth_pos, (int, float)) and depth_pos != 99:
-            tier_depth_multipliers = {1: 1.5, 2: 1.2, 3: 1.0}
-            multiplier = tier_depth_multipliers[tier]
+            tier_depth_multipliers = config.get_dict("player_value_analyzer.tier_multipliers.depth_chart")
+            multiplier = float(tier_depth_multipliers.get(str(tier), 1.0))
+            
+            # Get depth bonuses from config
+            position_1_bonus = config.get_float("player_value_analyzer.depth_bonuses.position_1", 20)
+            position_2_bonus = config.get_float("player_value_analyzer.depth_bonuses.position_2", 10)
+            position_3_bonus = config.get_float("player_value_analyzer.depth_bonuses.position_3", 5)
             
             if depth_pos == 1:
-                depth_bonus = 20 * multiplier
+                depth_bonus = position_1_bonus * multiplier
             elif depth_pos == 2:
-                depth_bonus = 10 * multiplier
+                depth_bonus = position_2_bonus * multiplier
             elif depth_pos <= 3:
-                depth_bonus = 5 * multiplier
+                depth_bonus = position_3_bonus * multiplier
         
-        # Enhanced trending bonus/penalty with tier scaling
+        # Enhanced trending bonus/penalty with tier scaling from config
         trending_score = self.trending_cache.get(player_id, 0)
-        tier_trending_multipliers = {1: 1.3, 2: 1.1, 3: 0.9}
-        trending_multiplier = tier_trending_multipliers[tier]
-        trending_bonus = min(20, max(-20, trending_score / 5)) * trending_multiplier
+        tier_trending_multipliers = config.get_dict("player_value_analyzer.tier_multipliers.trending")
+        trending_multiplier = float(tier_trending_multipliers.get(str(tier), 1.0))
         
-        # Injury penalty (unchanged)
+        # Get trending limits from config
+        trending_max = config.get_float("player_value_analyzer.trending_limits.max", 20)
+        trending_min = config.get_float("player_value_analyzer.trending_limits.min", -20)
+        trending_divisor = config.get_float("player_value_analyzer.trending_limits.divisor", 5)
+        
+        trending_bonus = min(trending_max, max(trending_min, trending_score / trending_divisor)) * trending_multiplier
+        
+        # Injury penalty from config
         injury_penalty = 0
         injury_status = metrics['injury_status']
         if injury_status and isinstance(injury_status, str):
             injury_status_lower = injury_status.lower()
-            if 'out' in injury_status_lower or 'ir' in injury_status_lower:
-                injury_penalty = -30
+            
+            # Get injury penalties from config
+            injury_penalties = config.get_dict("player_value_analyzer.injury_penalties")
+            
+            if 'out' in injury_status_lower:
+                injury_penalty = config.get_float("player_value_analyzer.injury_penalties.out", -30)
+            elif 'ir' in injury_status_lower:
+                injury_penalty = config.get_float("player_value_analyzer.injury_penalties.ir", -30)
             elif 'doubtful' in injury_status_lower:
-                injury_penalty = -15
+                injury_penalty = config.get_float("player_value_analyzer.injury_penalties.doubtful", -15)
             elif 'questionable' in injury_status_lower:
-                injury_penalty = -5
+                injury_penalty = config.get_float("player_value_analyzer.injury_penalties.questionable", -5)
         
         # Enhanced tier-based draft bonus/penalty with more granularity
         draft_bonus = 0
@@ -483,32 +586,43 @@ class PlayerValueAnalyzer:
             else:  # Tier 3: Restricted caps (maintains our protection)
                 performance_modifier = max(-8, min(10, raw_performance_modifier))
         
-        # Position-based scarcity adjustments
+        # Position-based scarcity adjustments from config
         position_bonus = 0
         if tier == 1:  # Only apply to elite players
-            position_bonuses = {
-                'RB': 4,   # RB scarcity premium
-                'QB': 2,   # QB positional value
-                'TE': 3,   # TE scarcity premium
-                'WR': 0,   # Baseline
-                'K': -2,   # Less valuable
-                'DEF': -2  # Less valuable
-            }
-            position_bonus = position_bonuses.get(position, 0)
+            position_bonuses = config.get_dict("player_value_analyzer.position_bonuses")
+            position_bonus = float(position_bonuses.get(position, 0))
         
         # Calculate total score
         total_score = (base_score + depth_bonus + trending_bonus + injury_penalty + 
                       draft_bonus + performance_modifier + position_bonus)
         
-        # Apply flexible tier-based floors and caps
-        if tier == 1:  # Elite talent: Floor 85, no cap (allow up to 120+)
-            total_score = max(total_score, 85)
-        elif tier == 2:  # Solid contributors: Floor 65, soft cap at 95
-            total_score = max(total_score, 65)
-            if total_score > 95:
-                total_score = 95 + (total_score - 95) * 0.3  # Diminishing returns above 95
-        else:  # Tier 3: No floor, hard cap at 85 to prevent late-round inflation
-            total_score = min(total_score, 85)
+        # Apply flexible tier-based floors and caps from config
+        tier_floors_caps = config.get_dict("player_value_analyzer.tier_floors_and_caps")
+        
+        if tier == 1:
+            tier_config = tier_floors_caps.get("tier_1", {})
+            floor = tier_config.get("floor", 85)
+            cap = tier_config.get("cap")
+            total_score = max(total_score, floor)
+            if cap is not None:
+                total_score = min(total_score, cap)
+        elif tier == 2:
+            tier_config = tier_floors_caps.get("tier_2", {})
+            floor = tier_config.get("floor", 65)
+            cap = tier_config.get("cap", 95)
+            diminishing_returns = tier_config.get("diminishing_returns", 0.3)
+            
+            total_score = max(total_score, floor)
+            if cap is not None and total_score > cap:
+                total_score = cap + (total_score - cap) * diminishing_returns
+        else:  # tier 3
+            tier_config = tier_floors_caps.get("tier_3", {})
+            floor = tier_config.get("floor", 0)
+            cap = tier_config.get("cap", 85)
+            
+            total_score = max(total_score, floor)
+            if cap is not None:
+                total_score = min(total_score, cap)
         
         return max(0, total_score)  # Don't go below 0
     
@@ -580,21 +694,18 @@ class RosterAnalyzer:
         # Determine strengths and weaknesses
         pos_counts = {pos: len(players) for pos, players in positions.items()}
         
-        # Standard roster expectations for redraft leagues
-        expected_counts = {
-            'QB': 2,
-            'RB': 4,
-            'WR': 5,
-            'TE': 2,
-            'K': 1,
-            'DEF': 1
-        }
+        # Get expected counts from config
+        expected_counts = config.get_dict("roster_analyzer.expected_counts")
+        
+        # Get surplus and shortage thresholds from config
+        surplus_threshold = config.get_int("roster_analyzer.surplus_threshold", 1)
+        shortage_threshold = config.get_int("roster_analyzer.shortage_threshold", 0)
         
         for pos, expected in expected_counts.items():
             actual = pos_counts.get(pos, 0)
-            if actual > expected + 1:
+            if actual > expected + surplus_threshold:
                 analysis['strengths'].append(f"{pos} depth ({actual} players)")
-            elif actual < expected:
+            elif actual < expected - shortage_threshold:
                 analysis['weaknesses'].append(f"{pos} shortage ({actual}/{expected})")
                 analysis['needs'].append(pos)
         
@@ -603,8 +714,9 @@ class RosterAnalyzer:
 class LeagueAnalyzer:
     """Main league analysis class"""
     
-    def __init__(self, league_id: str):
-        self.league_id = league_id
+    def __init__(self, league_id: str = None):
+        # Use provided league ID or get from config
+        self.league_id = league_id or config.get_str("league.default_league_id")
         self.api = SleeperAPI()
         self.roster_analyzer = None
         
@@ -776,9 +888,14 @@ class LeagueAnalyzer:
         print("│ Pos     │ Player               │ ADP         │ Value │")
         print("├─────────┼──────────────────────┼─────────────┼───────┤")
         
+        # Get position order from config
+        position_order = config.get_list("display.position_order")
+        
         # Sort players by position for better organization
-        position_order = ['QB', 'RB', 'WR', 'TE', 'K', 'DEF']
         players.sort(key=lambda x: (position_order.index(x['position']) if x['position'] in position_order else 99, -x['value_score']))
+        
+        # Get max name length from config
+        max_name_length = config.get_int("display.table_max_name_length")
         
         # Table rows
         for player in players:
@@ -794,8 +911,8 @@ class LeagueAnalyzer:
                 pos_display = pos
             
             # Truncate name if too long
-            if len(name) > 20:
-                name = name[:17] + "..."
+            if len(name) > max_name_length:
+                name = name[:max_name_length-3] + "..."
             
             # Use consistent field widths
             print(f"│ {pos_display:<7} │ {name:<20} │ {adp:<11} │ {value:>5} │")
@@ -824,7 +941,7 @@ class LeagueAnalyzer:
         
         # Find complementary needs
         opportunities = []
-        for pos in ['QB', 'RB', 'WR', 'TE']:
+        for pos in config.get_list("display.position_order"):
             teams_needing = needs_map.get(pos, [])
             teams_with_depth = strengths_map.get(pos, [])
             
@@ -847,11 +964,11 @@ class LeagueAnalyzer:
 
 def main():
     """Main execution function"""
-    # Your league ID
-    LEAGUE_ID = "1257104566718054400"
+    # Get league ID from config
+    league_id = config.get_str("league.default_league_id")
     
     try:
-        analyzer = LeagueAnalyzer(LEAGUE_ID)
+        analyzer = LeagueAnalyzer(league_id)
         analyzer.analyze_league()
         
         print("\n" + "="*60)

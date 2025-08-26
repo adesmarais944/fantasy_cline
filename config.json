@@ -1,0 +1,104 @@
+{
+  "league": {
+    "default_league_id": "1257104566718054400",
+    "api": {
+      "base_url": "https://api.sleeper.app/v1"
+    }
+  },
+  "performance_tracker": {
+    "position_weights": {
+      "QB": 0.2,
+      "RB": 0.3,
+      "WR": 0.25,
+      "TE": 0.15,
+      "DEF": 0.05,
+      "K": 0.05
+    },
+    "position_multipliers": {
+      "QB": 0.08,
+      "RB": 0.25,
+      "WR": 0.35,
+      "TE": 0.08,
+      "DEF": 0.08,
+      "K": 0.08
+    }
+  },
+  "player_value_analyzer": {
+    "tier_thresholds": {
+      "tier_1_max_round": 3,
+      "tier_2_max_round": 6
+    },
+    "tier_multipliers": {
+      "base": {
+        "1": 1.3,
+        "2": 1.0,
+        "3": 0.7
+      },
+      "depth_chart": {
+        "1": 1.5,
+        "2": 1.2,
+        "3": 1.0
+      },
+      "trending": {
+        "1": 1.3,
+        "2": 1.1,
+        "3": 0.9
+      }
+    },
+    "depth_bonuses": {
+      "position_1": 20,
+      "position_2": 10,
+      "position_3": 5
+    },
+    "trending_limits": {
+      "max": 20,
+      "min": -20,
+      "divisor": 5
+    },
+    "injury_penalties": {
+      "out": -30,
+      "ir": -30,
+      "doubtful": -15,
+      "questionable": -5
+    },
+    "position_bonuses": {
+      "RB": 4,
+      "QB": 2,
+      "TE": 3,
+      "WR": 0,
+      "K": -2,
+      "DEF": -2
+    },
+    "tier_floors_and_caps": {
+      "tier_1": {
+        "floor": 85,
+        "cap": null
+      },
+      "tier_2": {
+        "floor": 65,
+        "cap": 95,
+        "diminishing_returns": 0.3
+      },
+      "tier_3": {
+        "floor": 0,
+        "cap": 85
+      }
+    }
+  },
+  "roster_analyzer": {
+    "expected_counts": {
+      "QB": 2,
+      "RB": 4,
+      "WR": 5,
+      "TE": 2,
+      "K": 1,
+      "DEF": 1
+    },
+    "surplus_threshold": 1,
+    "shortage_threshold": 0
+  },
+  "display": {
+    "position_order": ["QB", "RB", "WR", "TE", "K", "DEF"],
+    "table_max_name_length": 20
+  }
+}
