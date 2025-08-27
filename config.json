@@ -1,9 +1,22 @@
 {
+  "user": {
+    "display_name": "adamDeez",
+    "user_id": null
+  },
   "league": {
     "default_league_id": "1257104566718054400",
     "api": {
       "base_url": "https://api.sleeper.app/v1"
     }
+  },
+  "espn_api": {
+    "base_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl",
+    "web_api_url": "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl",
+    "enabled": false,
+    "cache_duration_hours": 24,
+    "request_timeout": 10,
+    "max_retries": 3,
+    "rate_limit_delay": 0.5
   },
   "performance_tracker": {
     "position_weights": {
@@ -100,5 +113,43 @@
   "display": {
     "position_order": ["QB", "RB", "WR", "TE", "K", "DEF"],
     "table_max_name_length": 20
+  },
+  "waiver_wire_analyzer": {
+    "analysis_types": ["hidden_gems", "trending", "insurance", "high_upside"],
+    "max_results_per_category": 10,
+    "minimum_value_threshold": 25,
+    "trending_lookback_hours": 168,
+    "focus_positions": ["RB", "WR", "TE", "QB", "DEF"],
+    "exclude_positions": ["K"],
+    "injury_status_filter": ["Healthy", "Questionable"],
+    "hidden_gems": {
+      "min_value_score": 40,
+      "max_trending_adds": 50,
+      "depth_chart_preference": [1, 2],
+      "undervalued_threshold": 30
+    },
+    "trending": {
+      "min_add_count": 20,
+      "lookback_hours": 72,
+      "recent_spike_bonus": 15
+    },
+    "insurance": {
+      "handcuff_bonus": 15,
+      "injury_replacement_bonus": 10,
+      "same_position_teammate_injury": 30,
+      "rb1_injury_rb2_boost": 35,
+      "wr1_injury_wr2_boost": 25,
+      "te1_injury_te2_boost": 30
+    },
+    "high_upside": {
+      "max_age": 28,
+      "min_years_exp": 0,
+      "max_years_exp": 5,
+      "breakout_age_range": [22, 26],
+      "rookie_opportunity": 10,
+      "depth_chart_promotion": 25,
+      "qb_upgrade_for_receivers": 20,
+      "qb_downgrade_penalty_for_receivers": -15
+    }
   }
 }
