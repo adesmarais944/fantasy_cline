@@ -12,11 +12,17 @@
   "espn_api": {
     "base_url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl",
     "web_api_url": "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl",
-    "enabled": false,
+    "enabled": true,
     "cache_duration_hours": 24,
     "request_timeout": 10,
     "max_retries": 3,
-    "rate_limit_delay": 0.5
+    "rate_limit_delay": 0.5,
+    "stats_endpoints": {
+      "player_stats": "/athletes/{playerId}/stats",
+      "player_info": "/athletes/{playerId}",
+      "team_stats": "/teams/{teamId}/statistics",
+      "scoreboard": "/scoreboard?seasontype=2&week={week}"
+    }
   },
   "performance_tracker": {
     "position_weights": {
