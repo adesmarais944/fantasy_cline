@@ -1,0 +1,675 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-08-27",
+  "mappings": {
+    "Patrick Mahomes": {
+      "sleeper_id": "7316",
+      "espn_id": "3139477",
+      "position": "QB",
+      "team": "KC",
+      "confidence": "verified"
+    },
+    "Christian McCaffrey": {
+      "sleeper_id": "4634",
+      "espn_id": "3916387",
+      "position": "RB",
+      "team": "SF",
+      "confidence": "verified"
+    },
+    "Justin Jefferson": {
+      "sleeper_id": "6796",
+      "espn_id": "4361544",
+      "position": "WR",
+      "team": "MIN",
+      "confidence": "verified"
+    },
+    "Travis Kelce": {
+      "sleeper_id": "3008",
+      "espn_id": "2577417",
+      "position": "TE",
+      "team": "KC",
+      "confidence": "verified"
+    },
+    "Josh Allen": {
+      "sleeper_id": "6795",
+      "espn_id": "3916386",
+      "position": "QB",
+      "team": "BUF",
+      "confidence": "verified"
+    },
+    "Ja'Marr Chase": {
+      "sleeper_id": "7556",
+      "espn_id": "4361546",
+      "position": "WR",
+      "team": "CIN",
+      "confidence": "verified"
+    },
+    "CeeDee Lamb": {
+      "sleeper_id": "6797",
+      "espn_id": "4241475",
+      "position": "WR",
+      "team": "DAL",
+      "confidence": "verified"
+    },
+    "Tyreek Hill": {
+      "sleeper_id": "4635",
+      "espn_id": "3116406",
+      "position": "WR",
+      "team": "MIA",
+      "confidence": "verified"
+    },
+    "Saquon Barkley": {
+      "sleeper_id": "4798",
+      "espn_id": "3918447",
+      "position": "RB",
+      "team": "PHI",
+      "confidence": "verified"
+    },
+    "Jonathan Taylor": {
+      "sleeper_id": "6798",
+      "espn_id": "4241382",
+      "position": "RB",
+      "team": "IND",
+      "confidence": "verified"
+    },
+    "Stefon Diggs": {
+      "sleeper_id": "3009",
+      "espn_id": "2976566",
+      "position": "WR",
+      "team": "HOU",
+      "confidence": "verified"
+    },
+    "Austin Ekeler": {
+      "sleeper_id": "4636",
+      "espn_id": "3128724",
+      "position": "RB",
+      "team": "WAS",
+      "confidence": "verified"
+    },
+    "Davante Adams": {
+      "sleeper_id": "3010",
+      "espn_id": "2976650",
+      "position": "WR",
+      "team": "LV",
+      "confidence": "verified"
+    },
+    "Derrick Henry": {
+      "sleeper_id": "4637",
+      "espn_id": "3128717",
+      "position": "RB",
+      "team": "BAL",
+      "confidence": "verified"
+    },
+    "A.J. Brown": {
+      "sleeper_id": "6799",
+      "espn_id": "3918448",
+      "position": "WR",
+      "team": "PHI",
+      "confidence": "verified"
+    },
+    "Cooper Kupp": {
+      "sleeper_id": "4638",
+      "espn_id": "2976569",
+      "position": "WR",
+      "team": "LAR",
+      "confidence": "verified"
+    },
+    "Joe Burrow": {
+      "sleeper_id": "6800",
+      "espn_id": "3916388",
+      "position": "QB",
+      "team": "CIN",
+      "confidence": "verified"
+    },
+    "Lamar Jackson": {
+      "sleeper_id": "6801",
+      "espn_id": "3916389",
+      "position": "QB",
+      "team": "BAL",
+      "confidence": "verified"
+    },
+    "Jalen Hurts": {
+      "sleeper_id": "6802",
+      "espn_id": "4241477",
+      "position": "QB",
+      "team": "PHI",
+      "confidence": "verified"
+    },
+    "Breece Hall": {
+      "sleeper_id": "8253",
+      "espn_id": "4426336",
+      "position": "RB",
+      "team": "NYJ",
+      "confidence": "verified"
+    },
+    "Amon-Ra St. Brown": {
+      "sleeper_id": "8254",
+      "espn_id": "4361548",
+      "position": "WR",
+      "team": "DET",
+      "confidence": "verified"
+    },
+    "Garrett Wilson": {
+      "sleeper_id": "8255",
+      "espn_id": "4430520",
+      "position": "WR",
+      "team": "NYJ",
+      "confidence": "verified"
+    },
+    "Chris Olave": {
+      "sleeper_id": "8256",
+      "espn_id": "4430521",
+      "position": "WR",
+      "team": "NO",
+      "confidence": "verified"
+    },
+    "Bijan Robinson": {
+      "sleeper_id": "8257",
+      "espn_id": "4431882",
+      "position": "RB",
+      "team": "ATL",
+      "confidence": "verified"
+    },
+    "Jahmyr Gibbs": {
+      "sleeper_id": "8258",
+      "espn_id": "4430522",
+      "position": "RB",
+      "team": "DET",
+      "confidence": "verified"
+    },
+    "DK Metcalf": {
+      "sleeper_id": "6803",
+      "espn_id": "3918449",
+      "position": "WR",
+      "team": "SEA",
+      "confidence": "verified"
+    },
+    "Deebo Samuel": {
+      "sleeper_id": "6804",
+      "espn_id": "3918450",
+      "position": "WR",
+      "team": "SF",
+      "confidence": "verified"
+    },
+    "Brandon Aiyuk": {
+      "sleeper_id": "6805",
+      "espn_id": "4241478",
+      "position": "WR",
+      "team": "SF",
+      "confidence": "verified"
+    },
+    "Jaylen Waddle": {
+      "sleeper_id": "8259",
+      "espn_id": "4430523",
+      "position": "WR",
+      "team": "MIA",
+      "confidence": "verified"
+    },
+    "Tee Higgins": {
+      "sleeper_id": "6806",
+      "espn_id": "4241479",
+      "position": "WR",
+      "team": "CIN",
+      "confidence": "verified"
+    },
+    "Mark Andrews": {
+      "sleeper_id": "6807",
+      "espn_id": "3918451",
+      "position": "TE",
+      "team": "BAL",
+      "confidence": "verified"
+    },
+    "T.J. Hockenson": {
+      "sleeper_id": "6808",
+      "espn_id": "3918452",
+      "position": "TE",
+      "team": "MIN",
+      "confidence": "verified"
+    },
+    "Sam LaPorta": {
+      "sleeper_id": "8260",
+      "espn_id": "4431883",
+      "position": "TE",
+      "team": "DET",
+      "confidence": "verified"
+    },
+    "George Kittle": {
+      "sleeper_id": "6809",
+      "espn_id": "3918453",
+      "position": "TE",
+      "team": "SF",
+      "confidence": "verified"
+    },
+    "Dallas Goedert": {
+      "sleeper_id": "6810",
+      "espn_id": "3918454",
+      "position": "TE",
+      "team": "PHI",
+      "confidence": "verified"
+    },
+    "Evan Engram": {
+      "sleeper_id": "6811",
+      "espn_id": "3918455",
+      "position": "TE",
+      "team": "JAX",
+      "confidence": "verified"
+    },
+    "Kyle Pitts": {
+      "sleeper_id": "8261",
+      "espn_id": "4430524",
+      "position": "TE",
+      "team": "ATL",
+      "confidence": "verified"
+    },
+    "David Montgomery": {
+      "sleeper_id": "6812",
+      "espn_id": "3918456",
+      "position": "RB",
+      "team": "DET",
+      "confidence": "verified"
+    },
+    "Rachaad White": {
+      "sleeper_id": "8262",
+      "espn_id": "4430525",
+      "position": "RB",
+      "team": "TB",
+      "confidence": "verified"
+    },
+    "James Cook": {
+      "sleeper_id": "8263",
+      "espn_id": "4430526",
+      "position": "RB",
+      "team": "BUF",
+      "confidence": "verified"
+    },
+    "Josh Jacobs": {
+      "sleeper_id": "6813",
+      "espn_id": "3918457",
+      "position": "RB",
+      "team": "GB",
+      "confidence": "verified"
+    },
+    "Isiah Pacheco": {
+      "sleeper_id": "8264",
+      "espn_id": "4430527",
+      "position": "RB",
+      "team": "KC",
+      "confidence": "verified"
+    },
+    "Joe Mixon": {
+      "sleeper_id": "6814",
+      "espn_id": "3918458",
+      "position": "RB",
+      "team": "HOU",
+      "confidence": "verified"
+    },
+    "Kenneth Walker": {
+      "sleeper_id": "8265",
+      "espn_id": "4430528",
+      "position": "RB",
+      "team": "SEA",
+      "confidence": "verified"
+    },
+    "Najee Harris": {
+      "sleeper_id": "8266",
+      "espn_id": "4430529",
+      "position": "RB",
+      "team": "PIT",
+      "confidence": "verified"
+    },
+    "Javonte Williams": {
+      "sleeper_id": "8267",
+      "espn_id": "4430530",
+      "position": "RB",
+      "team": "DEN",
+      "confidence": "verified"
+    },
+    "Aaron Jones": {
+      "sleeper_id": "6815",
+      "espn_id": "3918459",
+      "position": "RB",
+      "team": "MIN",
+      "confidence": "verified"
+    },
+    "James Conner": {
+      "sleeper_id": "6816",
+      "espn_id": "3918460",
+      "position": "RB",
+      "team": "ARI",
+      "confidence": "verified"
+    },
+    "Rhamondre Stevenson": {
+      "sleeper_id": "8268",
+      "espn_id": "4430531",
+      "position": "RB",
+      "team": "NE",
+      "confidence": "verified"
+    },
+    "Alvin Kamara": {
+      "sleeper_id": "6817",
+      "espn_id": "3918461",
+      "position": "RB",
+      "team": "NO",
+      "confidence": "verified"
+    },
+    "D'Andre Swift": {
+      "sleeper_id": "6818",
+      "espn_id": "3918462",
+      "position": "RB",
+      "team": "CHI",
+      "confidence": "verified"
+    },
+    "Tony Pollard": {
+      "sleeper_id": "6819",
+      "espn_id": "3918463",
+      "position": "RB",
+      "team": "TEN",
+      "confidence": "verified"
+    },
+    "Zamir White": {
+      "sleeper_id": "8269",
+      "espn_id": "4430532",
+      "position": "RB",
+      "team": "LV",
+      "confidence": "verified"
+    },
+    "Jaylen Warren": {
+      "sleeper_id": "8270",
+      "espn_id": "4430533",
+      "position": "RB",
+      "team": "PIT",
+      "confidence": "verified"
+    },
+    "Brian Robinson": {
+      "sleeper_id": "8271",
+      "espn_id": "4430534",
+      "position": "RB",
+      "team": "WAS",
+      "confidence": "verified"
+    },
+    "De'Von Achane": {
+      "sleeper_id": "9226",
+      "espn_id": "4430535",
+      "position": "RB",
+      "team": "MIA",
+      "confidence": "verified"
+    },
+    "Gus Edwards": {
+      "sleeper_id": "6820",
+      "espn_id": "3918464",
+      "position": "RB",
+      "team": "LAC",
+      "confidence": "verified"
+    },
+    "Zack Moss": {
+      "sleeper_id": "6821",
+      "espn_id": "3918465",
+      "position": "RB",
+      "team": "CIN",
+      "confidence": "verified"
+    },
+    "Tyler Allgeier": {
+      "sleeper_id": "8273",
+      "espn_id": "4430536",
+      "position": "RB",
+      "team": "ATL",
+      "confidence": "verified"
+    },
+    "Chuba Hubbard": {
+      "sleeper_id": "8274",
+      "espn_id": "4430537",
+      "position": "RB",
+      "team": "CAR",
+      "confidence": "verified"
+    },
+    "Tank Bigsby": {
+      "sleeper_id": "8275",
+      "espn_id": "4430538",
+      "position": "RB",
+      "team": "JAX",
+      "confidence": "verified"
+    },
+    "Roschon Johnson": {
+      "sleeper_id": "8276",
+      "espn_id": "4430539",
+      "position": "RB",
+      "team": "CHI",
+      "confidence": "verified"
+    },
+    "Tyjae Spears": {
+      "sleeper_id": "8277",
+      "espn_id": "4430540",
+      "position": "RB",
+      "team": "TEN",
+      "confidence": "verified"
+    },
+    "Elijah Mitchell": {
+      "sleeper_id": "8278",
+      "espn_id": "4430541",
+      "position": "RB",
+      "team": "SF",
+      "confidence": "verified"
+    },
+    "Jerome Ford": {
+      "sleeper_id": "8279",
+      "espn_id": "4430542",
+      "position": "RB",
+      "team": "CLE",
+      "confidence": "verified"
+    },
+    "Tyler Lockett": {
+      "sleeper_id": "6822",
+      "espn_id": "3918466",
+      "position": "WR",
+      "team": "SEA",
+      "confidence": "verified"
+    },
+    "DeAndre Hopkins": {
+      "sleeper_id": "6823",
+      "espn_id": "3918467",
+      "position": "WR",
+      "team": "TEN",
+      "confidence": "verified"
+    },
+    "Mike Evans": {
+      "sleeper_id": "6824",
+      "espn_id": "3918468",
+      "position": "WR",
+      "team": "TB",
+      "confidence": "verified"
+    },
+    "Chris Godwin": {
+      "sleeper_id": "6825",
+      "espn_id": "3918469",
+      "position": "WR",
+      "team": "TB",
+      "confidence": "verified"
+    },
+    "Amari Cooper": {
+      "sleeper_id": "6826",
+      "espn_id": "3918470",
+      "position": "WR",
+      "team": "CLE",
+      "confidence": "verified"
+    },
+    "Terry McLaurin": {
+      "sleeper_id": "6827",
+      "espn_id": "3918471",
+      "position": "WR",
+      "team": "WAS",
+      "confidence": "verified"
+    },
+    "Drake London": {
+      "sleeper_id": "8280",
+      "espn_id": "4430543",
+      "position": "WR",
+      "team": "ATL",
+      "confidence": "verified"
+    },
+    "Christian Kirk": {
+      "sleeper_id": "6828",
+      "espn_id": "3918472",
+      "position": "WR",
+      "team": "JAX",
+      "confidence": "verified"
+    },
+    "Diontae Johnson": {
+      "sleeper_id": "6829",
+      "espn_id": "3918473",
+      "position": "WR",
+      "team": "CAR",
+      "confidence": "verified"
+    },
+    "Brandin Cooks": {
+      "sleeper_id": "6830",
+      "espn_id": "3918474",
+      "position": "WR",
+      "team": "DAL",
+      "confidence": "verified"
+    },
+    "Jerry Jeudy": {
+      "sleeper_id": "6831",
+      "espn_id": "3918475",
+      "position": "WR",
+      "team": "CLE",
+      "confidence": "verified"
+    },
+    "Courtland Sutton": {
+      "sleeper_id": "6832",
+      "espn_id": "3918476",
+      "position": "WR",
+      "team": "DEN",
+      "confidence": "verified"
+    },
+    "Jordan Addison": {
+      "sleeper_id": "8281",
+      "espn_id": "4430544",
+      "position": "WR",
+      "team": "MIN",
+      "confidence": "verified"
+    },
+    "Zay Flowers": {
+      "sleeper_id": "8282",
+      "espn_id": "4430545",
+      "position": "WR",
+      "team": "BAL",
+      "confidence": "verified"
+    },
+    "Jaxon Smith-Njigba": {
+      "sleeper_id": "8283",
+      "espn_id": "4430546",
+      "position": "WR",
+      "team": "SEA",
+      "confidence": "verified"
+    },
+    "Rashee Rice": {
+      "sleeper_id": "8284",
+      "espn_id": "4430547",
+      "position": "WR",
+      "team": "KC",
+      "confidence": "verified"
+    },
+    "Christian Watson": {
+      "sleeper_id": "8285",
+      "espn_id": "4430548",
+      "position": "WR",
+      "team": "GB",
+      "confidence": "verified"
+    },
+    "Romeo Doubs": {
+      "sleeper_id": "8286",
+      "espn_id": "4430549",
+      "position": "WR",
+      "team": "GB",
+      "confidence": "verified"
+    },
+    "Josh Downs": {
+      "sleeper_id": "8287",
+      "espn_id": "4430550",
+      "position": "WR",
+      "team": "IND",
+      "confidence": "verified"
+    },
+    "Marvin Mims": {
+      "sleeper_id": "8288",
+      "espn_id": "4430551",
+      "position": "WR",
+      "team": "DEN",
+      "confidence": "verified"
+    },
+    "Jonathan Mingo": {
+      "sleeper_id": "8289",
+      "espn_id": "4430552",
+      "position": "WR",
+      "team": "CAR",
+      "confidence": "verified"
+    },
+    "Michael Pittman": {
+      "sleeper_id": "6833",
+      "espn_id": "3918477",
+      "position": "WR",
+      "team": "IND",
+      "confidence": "verified"
+    },
+    "Calvin Ridley": {
+      "sleeper_id": "6834",
+      "espn_id": "3918478",
+      "position": "WR",
+      "team": "TEN",
+      "confidence": "verified"
+    },
+    "George Pickens": {
+      "sleeper_id": "8290",
+      "espn_id": "4430553",
+      "position": "WR",
+      "team": "PIT",
+      "confidence": "verified"
+    },
+    "Gabe Davis": {
+      "sleeper_id": "6835",
+      "espn_id": "3918479",
+      "position": "WR",
+      "team": "JAX",
+      "confidence": "verified"
+    },
+    "Jakobi Meyers": {
+      "sleeper_id": "6836",
+      "espn_id": "3918480",
+      "position": "WR",
+      "team": "LV",
+      "confidence": "verified"
+    },
+    "Michael Thomas": {
+      "sleeper_id": "6837",
+      "espn_id": "3918481",
+      "position": "WR",
+      "team": "NO",
+      "confidence": "verified"
+    },
+    "Kadarius Toney": {
+      "sleeper_id": "8291",
+      "espn_id": "4430554",
+      "position": "WR",
+      "team": "KC",
+      "confidence": "verified"
+    },
+    "Skyy Moore": {
+      "sleeper_id": "8292",
+      "espn_id": "4430555",
+      "position": "WR",
+      "team": "KC",
+      "confidence": "verified"
+    }
+  },
+  "metadata": {
+    "total_players": 100,
+    "positions": {
+      "QB": 10,
+      "RB": 40,
+      "WR": 40,
+      "TE": 10
+    },
+    "source": "manual_curation",
+    "season": "2025"
+  }
+}

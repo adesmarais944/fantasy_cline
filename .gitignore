@@ -1,2 +1,4 @@
 venv/
 *.pyc
+player_mapping_cache.json
+FantasyPros_2025_Draft_ALL_Rankings(1).csv

@@ -248,20 +248,46 @@ class ESPNStatsProvider(ESPNADPProvider):
         }
     
     def map_player_to_espn_id(self, sleeper_player_info: Dict) -> Optional[str]:
-        """Map Sleeper player to ESPN ID using name matching"""
-        # This is a simplified implementation - would need proper player ID mapping
-        player_name = f"{sleeper_player_info.get('first_name', '')} {sleeper_player_info.get('last_name', '')}".strip().lower()
+        """Map Sleeper player to ESPN ID using the mapping system"""
+        player_name = f"{sleeper_player_info.get('first_name', '')} {sleeper_player_info.get('last_name', '')}".strip()
         
-        # Simple name mapping for common players (would need comprehensive mapping)
+        # First check core mappings
+        core_mappings = self._load_core_mappings()
+        if player_name in core_mappings.get('mappings', {}):
+            return core_mappings['mappings'][player_name]['espn_id']
+        
+        # Then check cache
+        cache = self._load_cache()
+        if player_name in cache.get('mappings', {}):
+            return cache['mappings'][player_name]['espn_id']
+        
+        # Fallback to simple name mapping
         name_to_espn_id = {
             'patrick mahomes': '3139477',
             'christian mccaffrey': '3916387',
             'justin jefferson': '4361544',
             'travis kelce': '2577417',
-            'josh allen': '3916386'
+            'josh allen': '3916386',
+            'ceeedee lamb': '4241475'
         }
         
-        return name_to_espn_id.get(player_name)
+        return name_to_espn_id.get(player_name.lower())
+    
+    def _load_core_mappings(self) -> Dict:
+        """Load core manually curated mappings"""
+        try:
+            with open('player_mapping.json', 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {"version": "1.0", "mappings": {}, "metadata": {}}
+    
+    def _load_cache(self) -> Dict:
+        """Load auto-generated cache"""
+        try:
+            with open('player_mapping_cache.json', 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {"version": "1.0", "mappings": {}, "metadata": {}}
 
 # Create global instance for easy import
 espn_stats_provider = ESPNStatsProvider()
